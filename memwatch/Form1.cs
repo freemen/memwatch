@@ -36,16 +36,17 @@ namespace memwatch
             lv.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }
 
-        private void Form1_Resize()
+        private void Form1_Resize(object sender, EventArgs e)
         {
-
+            lv.Width = (Form1.ActiveForm.Size.Width * 3) / 4; 
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int r = new Random().Next() % 255;
-            int g = new Random().Next() % 255;
-            int b = new Random().Next() % 255;
+            Random rand = new Random();
+            int r = rand.Next() % 255;
+            int g = (rand.Next() >> 8) % 255;
+            int b = (rand.Next() >> 16) % 255;
             this.infoText.Text = "r:"+r.ToString()+"g"+g.ToString()+"b"+b.ToString();
 
             this.BackColor = Color.FromArgb(r,g,b);
