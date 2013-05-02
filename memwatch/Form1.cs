@@ -42,13 +42,7 @@ namespace memwatch
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Random rand = new Random();
-            int r = rand.Next() % 255;
-            int g = (rand.Next() >> 8) % 255;
-            int b = (rand.Next() >> 16) % 255;
-            this.infoText.Text = "r:"+r.ToString()+"g"+g.ToString()+"b"+b.ToString();
-
-            this.BackColor = Color.FromArgb(r,g,b);
+            randomBackgroundColor();
         }
 
         private void infoText_Click(object sender, EventArgs e)
@@ -96,33 +90,45 @@ namespace memwatch
                 info[6] = mProcess.BasePriority.ToString();
 
                 String indexkey = "p" + info[2].ToString();
+                ListViewItem li = new ListViewItem(info, "processInfo");
+                li.Name = indexkey;
                 int index = lv.Items.IndexOfKey(indexkey);
-                if (!lv.Items.ContainsKey(indexkey))
-                {
-                    logBox.AppendText("\nno " + indexkey);
-                }
-                ListViewItem li = new ListViewItem(info, indexkey);
+                //想要弄成动态刷新……刷新是刷新了，但好像还是不能局部刷新
                 if (index<0)
                 {
                     lv.Items.Add(li);
-                    //logBox.AppendText("\nnew LVIkey is"+li.ImageKey );
+                    randomBackgroundColor();
+                    logBox.AppendText("\nnew LVIkey is"+indexkey );
                 }
                 else
                 {
-                    if (!lv.Items[index].Equals(li))
+                    ListViewItem cli = lv.Items[index];
+                    if (cli.SubItems[3].Text != info[3] || cli.SubItems[4].Text != info[4] 
+                        || cli.SubItems[5].Text != info[5] || li.SubItems[6].Text != info[6])
                     {
                         lv.Items.RemoveAt(index);
                         lv.Items.Add(li);
+                        randomBackgroundColor();
                         logBox.AppendText("\nitem changed so" + indexkey);
                     }
                 }
             }
-            foreach (ListViewItem lvi in lv.Items)
-            {
-                //TODO:delete the ones that didn't appear anymore
-            }
+            //foreach (ListViewItem lvi in lv.Items)
+            //{
+            //    //TODO:delete the ones that didn't appear anymore
+            //}
 
         }
 
+        private void randomBackgroundColor()
+        {
+            Random rand = new Random();
+            int r = rand.Next() % 255;
+            int g = (rand.Next() >> 8) % 255;
+            int b = (rand.Next() >> 16) % 255;
+            this.infoText.Text = "r:" + r.ToString() + "g" + g.ToString() + "b" + b.ToString();
+
+            this.BackColor = Color.FromArgb(r, g, b);
+        }
     }
 }
