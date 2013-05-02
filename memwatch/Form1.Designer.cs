@@ -28,8 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("th");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem(new string[] {
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("th");
+            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "bad",
             "1223",
             "45667"}, -1);
@@ -38,6 +39,9 @@
             this.cancelBtn = new System.Windows.Forms.Button();
             this.lv = new System.Windows.Forms.ListView();
             this.colHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+            this.logBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // colorBtn
@@ -77,26 +81,50 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lv.BackColor = System.Drawing.Color.Linen;
             this.lv.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colHeader1});
+            this.colHeader1,
+            this.colHeader2});
             this.lv.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2});
+            listViewItem5,
+            listViewItem6});
             this.lv.Location = new System.Drawing.Point(24, 98);
             this.lv.Name = "lv";
             this.lv.ShowGroups = false;
-            this.lv.Size = new System.Drawing.Size(230, 151);
+            this.lv.Size = new System.Drawing.Size(538, 261);
             this.lv.TabIndex = 3;
             this.lv.UseCompatibleStateImageBehavior = false;
+            this.lv.View = System.Windows.Forms.View.Details;
+            this.lv.SelectedIndexChanged += new System.EventHandler(this.lv_SelectedIndexChanged);
             // 
             // colHeader1
             // 
             this.colHeader1.Text = "进程名称";
+            this.colHeader1.Width = 118;
+            // 
+            // colHeader2
+            // 
+            this.colHeader2.Text = "进程窗口标题";
+            this.colHeader2.Width = 117;
+            // 
+            // refreshTimer
+            // 
+            this.refreshTimer.Interval = 1000;
+            this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+            // 
+            // logBox
+            // 
+            this.logBox.Font = new System.Drawing.Font("Times New Roman", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.logBox.Location = new System.Drawing.Point(305, 9);
+            this.logBox.Name = "logBox";
+            this.logBox.Size = new System.Drawing.Size(257, 68);
+            this.logBox.TabIndex = 4;
+            this.logBox.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(592, 371);
+            this.Controls.Add(this.logBox);
             this.Controls.Add(this.lv);
             this.Controls.Add(this.cancelBtn);
             this.Controls.Add(this.infoText);
@@ -116,6 +144,9 @@
         private System.Windows.Forms.Button cancelBtn;
         private System.Windows.Forms.ListView lv;
         private System.Windows.Forms.ColumnHeader colHeader1;
+        private System.Windows.Forms.ColumnHeader colHeader2;
+        private System.Windows.Forms.Timer refreshTimer;
+        private System.Windows.Forms.RichTextBox logBox;
     }
 }
 
